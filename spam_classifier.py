@@ -1,7 +1,11 @@
 #!/usr/bin/env python3.13
+import os
+# Silence TensorFlow info/warning logs and oneDNN messages
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+
 import tensorflow as tf
 from tensorflow.keras import layers, models
-import os
 
 def run_inference_tf():
     # 1. Input layer values
@@ -51,11 +55,4 @@ def run_inference_tf():
     return spam_probability
 
 if __name__ == "__main__":
-    # Disable TensorFlow logging for cleaner output
-    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-    
-    try:
-        run_inference_tf()
-    except Exception as e:
-        print(f"Error: {e}")
-        print("Please ensure you are using Python 3.13 (py -3.13) where TensorFlow is installed.")
+    run_inference_tf()
